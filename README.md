@@ -60,21 +60,21 @@ taskflow/
 
 ## Tech Choices & Why
 
-| Layer | Choice | Reason |
-|---|---|---|
-| Backend runtime | Node.js + TypeScript | Required by spec; type safety eliminates entire classes of bugs |
-| Framework | Express | Lightweight, battle-tested, composable middleware |
-| ORM | Prisma | Type-safe queries, migrations, readable schema DSL |
-| Database | SQLite (dev) / PostgreSQL (prod-ready) | Zero-config for dev; swap `DATABASE_URL` for Postgres in prod |
-| Auth | JWT — Access (15m) + Refresh (7d) with rotation | Stateless access, revocable refresh, no session DB needed |
-| Password hashing | bcrypt (cost factor 12) | Industry standard, adaptive |
-| Validation | express-validator | Declarative, chainable, integrates cleanly |
-| Rate limiting | express-rate-limit | Brute-force protection on auth routes |
-| Frontend | Next.js 15 App Router + React 19 | Latest stable, Server/Client components, `useTransition` for async |
-| Styling | Tailwind CSS v3 | Utility-first, fast iteration, no runtime overhead |
-| HTTP client | Axios + interceptors | Automatic token refresh on 401, request queuing |
-| Global state | Zustand | Minimal boilerplate, no context drilling |
-| Toasts | react-hot-toast | Lightweight, fully customisable |
+| Layer            | Choice                                          | Reason                                                             |
+| ---------------- | ----------------------------------------------- | ------------------------------------------------------------------ |
+| Backend runtime  | Node.js + TypeScript                            | Required by spec; type safety eliminates entire classes of bugs    |
+| Framework        | Express                                         | Lightweight, battle-tested, composable middleware                  |
+| ORM              | Prisma                                          | Type-safe queries, migrations, readable schema DSL                 |
+| Database         | SQLite (dev) / PostgreSQL (prod-ready)          | Zero-config for dev; swap `DATABASE_URL` for Postgres in prod      |
+| Auth             | JWT — Access (15m) + Refresh (7d) with rotation | Stateless access, revocable refresh, no session DB needed          |
+| Password hashing | bcrypt (cost factor 12)                         | Industry standard, adaptive                                        |
+| Validation       | express-validator                               | Declarative, chainable, integrates cleanly                         |
+| Rate limiting    | express-rate-limit                              | Brute-force protection on auth routes                              |
+| Frontend         | Next.js 15 App Router + React 19                | Latest stable, Server/Client components, `useTransition` for async |
+| Styling          | Tailwind CSS v3                                 | Utility-first, fast iteration, no runtime overhead                 |
+| HTTP client      | Axios + interceptors                            | Automatic token refresh on 401, request queuing                    |
+| Global state     | Zustand                                         | Minimal boilerplate, no context drilling                           |
+| Toasts           | react-hot-toast                                 | Lightweight, fully customisable                                    |
 
 ---
 
@@ -105,23 +105,25 @@ npm run dev
 
 #### Auth
 
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| `POST` | `/auth/register` | ✗ | Create account, returns token pair |
-| `POST` | `/auth/login` | ✗ | Login, returns token pair |
-| `POST` | `/auth/refresh` | ✗ | Rotate refresh token, get new access token |
-| `POST` | `/auth/logout` | ✗ | Revoke refresh token |
+| Method | Endpoint         | Auth | Description                                |
+| ------ | ---------------- | ---- | ------------------------------------------ |
+| `POST` | `/auth/register` | ✗    | Create account, returns token pair         |
+| `POST` | `/auth/login`    | ✗    | Login, returns token pair                  |
+| `POST` | `/auth/refresh`  | ✗    | Rotate refresh token, get new access token |
+| `POST` | `/auth/logout`   | ✗    | Revoke refresh token                       |
 
 **Register / Login body:**
+
 ```json
 {
-  "name": "Jane Smith",        // register only
+  "name": "Jane Smith", // register only
   "email": "jane@example.com",
   "password": "Password1"
 }
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -135,28 +137,29 @@ npm run dev
 
 #### Tasks — all require `Authorization: Bearer <accessToken>`
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/tasks` | List tasks (paginated, filtered, searchable) |
-| `POST` | `/tasks` | Create a task |
-| `GET` | `/tasks/:id` | Get single task |
-| `PATCH` | `/tasks/:id` | Update task fields |
-| `DELETE` | `/tasks/:id` | Delete task |
-| `POST` | `/tasks/:id/toggle` | Toggle PENDING ↔ COMPLETED |
+| Method   | Endpoint            | Description                                  |
+| -------- | ------------------- | -------------------------------------------- |
+| `GET`    | `/tasks`            | List tasks (paginated, filtered, searchable) |
+| `POST`   | `/tasks`            | Create a task                                |
+| `GET`    | `/tasks/:id`        | Get single task                              |
+| `PATCH`  | `/tasks/:id`        | Update task fields                           |
+| `DELETE` | `/tasks/:id`        | Delete task                                  |
+| `POST`   | `/tasks/:id/toggle` | Toggle PENDING ↔ COMPLETED                   |
 
 **GET /tasks query params:**
 
-| Param | Type | Example |
-|---|---|---|
-| `page` | number | `1` |
-| `limit` | number | `10` (max 50) |
-| `status` | string | `PENDING \| IN_PROGRESS \| COMPLETED` |
-| `priority` | string | `LOW \| MEDIUM \| HIGH` |
-| `search` | string | `fix bug` |
-| `sortBy` | string | `createdAt \| dueDate \| priority \| title` |
-| `sortOrder` | string | `asc \| desc` |
+| Param       | Type   | Example                                     |
+| ----------- | ------ | ------------------------------------------- |
+| `page`      | number | `1`                                         |
+| `limit`     | number | `10` (max 50)                               |
+| `status`    | string | `PENDING \| IN_PROGRESS \| COMPLETED`       |
+| `priority`  | string | `LOW \| MEDIUM \| HIGH`                     |
+| `search`    | string | `fix bug`                                   |
+| `sortBy`    | string | `createdAt \| dueDate \| priority \| title` |
+| `sortOrder` | string | `asc \| desc`                               |
 
 **Task body (POST / PATCH):**
+
 ```json
 {
   "title": "Build the API",
@@ -198,17 +201,20 @@ npm run dev
 ### Features
 
 **Authentication**
+
 - `/register` — Name, email, password with real-time strength checklist
 - `/login` — Email + password, show/hide toggle
 - Tokens stored in `localStorage`; auto-refresh via Axios interceptor on every 401
 - `AuthGuard` component blocks `/dashboard` without a valid session
 
 **Dashboard**
+
 - Stats bar: total / pending / in-progress / completed counts
 - Search (debounced 350ms), status filter, priority filter, sort order
 - Responsive grid layout — works on mobile and desktop
 
 **Task CRUD**
+
 - **Create** — modal form with title, description, status, priority, due date
 - **Edit** — same modal pre-filled with existing values
 - **Delete** — two-click confirmation (first click shows `!`, second confirms)
@@ -216,6 +222,7 @@ npm run dev
 - **Overdue** indicator — red clock icon on past-due incomplete tasks
 
 **UX details**
+
 - Staggered entrance animations on task cards
 - Skeleton loader while fetching
 - Empty states — different copy for "no tasks" vs "no filter results"
@@ -259,5 +266,3 @@ cd taskflow/backend && npm run dev
 # Terminal 2 — Frontend
 cd taskflow/frontend && npm run dev
 ```
-
-Visit **http://localhost:3000**, register an account, and start adding tasks.
