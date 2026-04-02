@@ -8,6 +8,7 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+// ── Attach access token to every request ─────────────────────────────────────
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('accessToken');
@@ -18,6 +19,7 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   return config;
 });
 
+// ── Auto-refresh on 401 ───────────────────────────────────────────────────────
 let isRefreshing = false;
 let failedQueue: Array<{
   resolve: (value: unknown) => void;
