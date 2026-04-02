@@ -3,7 +3,6 @@ import Link from "next/link";
 export default function LandingPage() {
   return (
     <div className="min-h-dvh bg-white font-body">
-      {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
@@ -48,7 +47,6 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section className="pt-32 pb-24 px-6 max-w-6xl mx-auto">
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/8 border border-accent/15 rounded-full mb-8">
@@ -92,10 +90,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Dashboard preview */}
       <section className="px-6 max-w-6xl mx-auto mb-24">
         <div className="rounded-2xl border border-gray-100 overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.08)]">
-          {/* Browser chrome */}
           <div className="bg-gray-50 border-b border-gray-100 px-4 py-3 flex items-center gap-3">
             <div className="flex gap-1.5">
               <div className="w-3 h-3 rounded-full bg-red-400" />
@@ -107,9 +103,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Fake dashboard */}
           <div className="bg-[#f7f7fb] p-6">
-            {/* Header row */}
             <div className="flex items-center justify-between mb-6">
               <div>
                 <p className="text-xs text-gray-400 mb-0.5">
@@ -124,7 +118,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-4 gap-3 mb-5">
               {[
                 { n: "12", l: "Total tasks", c: "text-accent" },
@@ -144,7 +137,6 @@ export default function LandingPage() {
               ))}
             </div>
 
-            {/* Progress bar */}
             <div className="bg-white rounded-xl p-3 border border-gray-100 mb-4 flex items-center gap-3">
               <span className="text-xs text-gray-400">Progress</span>
               <div className="flex-1 h-1.5 bg-gray-100 rounded-full">
@@ -153,7 +145,6 @@ export default function LandingPage() {
               <span className="text-xs text-gray-400 font-mono">25%</span>
             </div>
 
-            {/* Tasks */}
             <div className="space-y-2">
               {[
                 {
@@ -207,7 +198,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features */}
       <section id="features" className="px-6 py-24 border-t border-gray-100">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -275,7 +265,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* About */}
       <section id="about" className="px-6 py-24 bg-ink">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -358,7 +347,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="px-6 py-24 border-t border-gray-100">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink mb-4">
