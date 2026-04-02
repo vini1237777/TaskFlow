@@ -21,6 +21,17 @@ export const prisma = new PrismaClient({
 const app = express();
 const PORT = parseInt(process.env.PORT || "4000", 10);
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:4000",
+      "https://vercel.com/vinisha699gmailcoms-projects/task-flow-o9zm",
+      "https://task-flow-o9zm.vercel.app/",
+    ],
+    credentials: true,
+  }),
+);
+
 app.use(helmet());
 app.use(
   cors({
