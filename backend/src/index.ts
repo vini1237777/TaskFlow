@@ -24,7 +24,7 @@ const PORT = parseInt(process.env.PORT || "4000", 10);
 app.use(
   cors({
     origin: [
-      "http://localhost:4000",
+      "http://localhost:3000",
       "https://vercel.com/vinisha699gmailcoms-projects/task-flow-o9zm",
       "https://task-flow-o9zm.vercel.app/",
     ],
