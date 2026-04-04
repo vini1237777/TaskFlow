@@ -1,6 +1,10 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL?.trim();
+
+if (!BASE_URL) {
+  throw new Error("NEXT_PUBLIC_API_URL is not defined");
+}
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -64,7 +68,9 @@ api.interceptors.response.use(
         const { data } = await axios.post(`${BASE_URL}/auth/refresh`, {
           refreshToken,
         });
+
         const { accessToken, refreshToken: newRefreshToken } = data.data;
+
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", newRefreshToken);
 
