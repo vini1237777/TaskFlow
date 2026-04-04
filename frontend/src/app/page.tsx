@@ -290,7 +290,7 @@ export default function LandingPage() {
                 {[
                   "Node.js",
                   "TypeScript",
-                  "Next.js 15",
+                  "Next.js 16",
                   "React 19",
                   "Prisma",
                   "PostgreSQL",
